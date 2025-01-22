@@ -34,15 +34,15 @@ app.use((req, res, next) => {
 // workoutRoutes is triggered when we make a request to /api/workouts
 app.use("/api/workouts", workoutRoutes);
 
-// Connect to DB
-mongoose
-  .connect(process.env.MONGO_URI)
+// connect to db
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    // Listen for requests
+    console.log('connected to database')
+    // listen to port
     app.listen(process.env.PORT, () => {
-      console.log("Connected to DB & listening on port", process.env.PORT);
-    });
+      console.log('listening for requests on port', process.env.PORT)
+    })
   })
   .catch((err) => {
-    console.log(err);
-  });
+    console.log(err)
+  }) 
