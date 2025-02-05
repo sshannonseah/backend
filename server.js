@@ -34,20 +34,15 @@ app.use((req, res, next) => {
 // workoutRoutes is triggered when we make a request to /api/workouts
 app.use("/api/workouts", workoutRoutes);
 
-// Catch-all route for undefined endpoints
-app.use((req, res) => {
-  res.status(404).json({ error: "Route not found" });
-});
-
-// connect to db
-mongoose.connect(process.env.MONGO_URI)
+// Connect to DB
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('connected to database')
-    // listen to port
+    // Listen for requests
     app.listen(process.env.PORT, () => {
-      console.log('listening for requests on port', process.env.PORT)
-    })
+      console.log("Connected to DB & listening on port", process.env.PORT);
+    });
   })
   .catch((err) => {
-    console.log(err)
-  }) 
+    console.log(err);
+  });
